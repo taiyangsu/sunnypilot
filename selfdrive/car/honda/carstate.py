@@ -149,7 +149,7 @@ class CarState(CarStateBase):
 
     if self.CP.carFingerprint in HONDA_BOSCH_RADARLESS:
       ret.accFaulted = bool(cp.vl["CRUISE_FAULT_STATUS"]["CRUISE_FAULT"])
-    elif self.CP.carFingerprint == CAR.CLARITY:
+    elif self.CP.carFingerprint == CAR.HONDA_CLARITY:
       ret.accFaulted = bool(cp.vl["BRAKE_ERROR"]["BRAKE_ERROR_1"] or cp.vl["BRAKE_ERROR"]["BRAKE_ERROR_2"])
     else:
       # On some cars, these two signals are always 1, this flag is masking a bug in release
@@ -264,7 +264,7 @@ class CarState(CarStateBase):
       if self.CP.carFingerprint not in HONDA_BOSCH_RADARLESS:
         ret.stockAeb = (not self.CP.openpilotLongitudinalControl) and bool(cp.vl["ACC_CONTROL"]["AEB_STATUS"] and cp.vl["ACC_CONTROL"]["ACCEL_COMMAND"] < -1e-5)
     else:
-      aeb_sig = "COMPUTER_BRAKE_ALT" if self.CP.carFingerprint == CAR.CLARITY else "COMPUTER_BRAKE"
+      aeb_sig = "COMPUTER_BRAKE_ALT" if self.CP.carFingerprint == CAR.HONDA_CLARITY else "COMPUTER_BRAKE"
       ret.stockAeb = bool(cp_cam.vl["BRAKE_COMMAND"]["AEB_REQ_1"] and cp_cam.vl["BRAKE_COMMAND"][aeb_sig] > 1e-5)
 
     self.acc_hud = False
