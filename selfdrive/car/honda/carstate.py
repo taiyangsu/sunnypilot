@@ -39,7 +39,7 @@ def get_can_messages(CP, gearbox_msg):
       ("SCM_BUTTONS", 25),
     ]
 
-  if CP.carFingerprint in (CAR.HONDA_CRV_HYBRID, CAR.HONDA_CIVIC_BOSCH_DIESEL, CAR.ACURA_RDX_3G, CAR.HONDA_E):
+  if CP.carFingerprint in (CAR.HONDA_CRV_HYBRID, CAR.HONDA_CIVIC_BOSCH_DIESEL, CAR.ACURA_RDX_3G, CAR.HONDA_E, CAR.ACURA_TLX):
     messages.append((gearbox_msg, 50))
   else:
     messages.append((gearbox_msg, 100))
@@ -253,8 +253,9 @@ class CarState(CarStateBase):
                                   CAR.CIVIC_BOSCH_DIESEL, CAR.CRV_HYBRID, CAR.INSIGHT, CAR.ACURA_RDX_3G, CAR.HONDA_E):
       ret.brakeLightsDEPRECATED = bool(cp.vl["ACC_CONTROL"]['BRAKE_LIGHTS'] != 0 or ret.brake > 0.4) if not self.CP.openpilotLongitudinalControl else \
                          bool(ret.brake > 0.4)
-    elif self.CP.carFingerprint in HONDA_BOSCH and self.CP.carFingerprint not in (CAR.CIVIC, CAR.ODYSSEY, CAR.ODYSSEY_CHN, CAR.CRV_5G, CAR.ACCORD, CAR.ACCORDH, CAR.CIVIC_BOSCH,
-                                    CAR.CIVIC_BOSCH_DIESEL, CAR.CRV_HYBRID, CAR.INSIGHT, CAR.ACURA_RDX_3G, CAR.HONDA_E) and self.CP.carFingerprint not in HONDA_BOSCH_RADARLESS:
+    elif self.CP.carFingerprint in HONDA_BOSCH and self.CP.carFingerprint not in (CAR.CIVIC, CAR.ODYSSEY, CAR.ODYSSEY_CHN, CAR.CRV_5G, CAR.ACCORD, CAR.ACCORDH,\
+                                     CAR.CIVIC_BOSCH, CAR.CIVIC_BOSCH_DIESEL, CAR.CRV_HYBRID, CAR.INSIGHT, CAR.ACURA_RDX_3G, CAR.HONDA_E) and \
+                                      self.CP.carFingerprint not in HONDA_BOSCH_RADARLESS:
       ret.brakeLightsDEPRECATED = bool(cp.vl["ACC_CONTROL"]['BRAKE_LIGHTS'] != 0 or ret.brake > 0.4) if not self.CP.openpilotLongitudinalControl else \
                          bool(ret.brake > 0.4)
 
